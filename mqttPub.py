@@ -35,11 +35,10 @@ def main():
     # run publish loop indefinitely as data is received
     while True:
         # pull data from rpi and post to server
-        temp, humditiy, light = gatherData()
-        data = "Temp: {temp}\nHumidity: {humidity}\nLight: {light}".format()
+        temp, humi, light = gatherData()
+        data = f"Temp: {temp}\nHumidity: {humi}\nLight: {light}"
         client.publish("monitor/sensor", data)
         time.sleep(4)
-        data += 1
 
 
 if __name__ == "__main__":
