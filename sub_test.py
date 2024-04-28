@@ -29,8 +29,6 @@ def on_message_from_sensor(client, userdata, message):
    print("GrovePi data: " + message.payload.decode())
 
 
-
-
 if __name__ == '__main__':
     
     #create a client object
