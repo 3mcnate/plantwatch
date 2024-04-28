@@ -3,6 +3,7 @@
 import paho.mqtt.client as paho
 import time
 import socket
+from emailSender import sendEmail
 
 # functions for client object
 def on_log(client, userdata, level, buf):
@@ -18,12 +19,27 @@ def on_connect(client, userdata, flags, rc):
 def on_disconnect(client, userdata, flags, rc=0):
     print("Disconnected, rc:", rc)
 
-# message decoding
+# message decoding and sending
 def on_message(client, userdata, message):
-    # print the message whenever recieved from the publisher
+    # decode message
     topic = message.topic
-    decoded_msg = str(message.payload.decode("utf-8"))
-    print("Message recieved:", decoded_msg)
+    msg = str(message.payload.decode("utf-8"))
+    msg = msg.strip().split(',')
+    # conver back to int values
+    for i in range(3):
+        msg[i] = int(msg[i])
+    print("Message recieved:", msg)
+    # email if an alert is needed
+    if checkData(msg):
+        sendEmail(msg)
+
+
+# # function to check if data outside desired range
+def checkData(msg, highTemp=50):
+    temp = msg[0]
+    if temp > highTemp:
+        return True
+    else: return False
 
 
 def main():

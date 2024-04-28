@@ -1,28 +1,45 @@
 # file used to send email given information from pi
 
-from email.message import EmailMessage
-import ssl
 import smtplib
+from email.mime.text import MIMEText
 
-# specify sender, reciever, data, etc
-email_sender = "blackada@usc.edu"
-email_password = 'PRAHUSLBRTPSFITS'
-email_reciever = "blackadarj22@icloud.com"
-subject = "TEST EMAIL"
-body = ""
+# user credentials
+sender = "plantmonitor741@gmail.com"
+password = 'jwtvwwlsxzgwyhjn'
+receiver = "blackadarj22@icloud.com"
 
-# construct email from info
-em = EmailMessage()
-em['From'] = email_sender
-em['To'] = email_reciever
-em['Subject'] = subject
-em.set_content(body)
+# function takes in data from RPI and makes email
+def constructEmail(data):
+    subject = "ALERT: Your plants need your help!"
 
-context = ssl.create_default_context()
+    temp = str(data[0])
+    humi = str(data[1])
+    # convert light level to something better understandable
+    light = data[2]
+    if light < 200:
+        lightLevel = "DARK"
+    elif light > 600:
+        lightLevel = "TOO BRIGHT"
+    else:
+        lightLevel = "NORMAL"
 
-with smtplib.SMTP_SSL('smtp.gmail.com', 465, context) as smtp:
-    # login for specific user
-    smtp.login(email_sender, email_password)
-    # send message
-    smtp.sendmail(email_sender, email_reciever, em.as_string())
+    body = f"""
+    You need to save your plants! It appears as though your plants are in an environment that might be harmful. Here's what our sensor found:
+    Current Temperature: {temp}
+    Current Humidity: {humi}
+    Light Level: {lightLevel}
+    """
+    return subject, body
 
+def sendEmail(data, receiver='blackadarj22@icloud.com', sender='plantmonitor741@gmail.com', password='jwtvwwlsxzgwyhjn'):
+    # call function to assemble email
+    subject, body = constructEmail(data)
+
+    message = MIMEText(body)
+    message['Subject'] = subject
+    message['To'] = receiver
+    message['From'] = sender
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+       smtp_server.login(sender, password)
+       smtp_server.sendmail(sender, receiver, message.as_string())
+    print("Message sent!")
