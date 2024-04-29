@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import datetime
 
 """This function (or "callback") will be executed when this client receives 
 a connection acknowledgement packet response from the server. """
@@ -9,7 +10,7 @@ def on_connect(client, userdata, flags, rc, properties):
     if we lose the connection and the library reconnects for us, this callback
     will be called again thus renewing the subscriptions"""
 
-    print("Connected to server (i.e., broker) with result code "+str(rc))
+    print("Connected to server (i.e., broker) with result code " + str(rc))
     #replace user with your USC username in all subscriptions
     client.subscribe("monitor/sensor")
     
@@ -26,7 +27,11 @@ def on_message(client, userdata, msg):
 
 #Custom message callback.
 def on_message_from_sensor(client, userdata, message):
-   print("GrovePi data: " + message.payload.decode())
+   print(f"[{get_timestamp()}] DATA: {message.payload.decode()}")
+
+def get_timestamp():
+    current_time = datetime.datetime.now()
+    return f"{current_time.hour:02}:{current_time.minute:02}:{current_time.second:02}"
 
 
 if __name__ == '__main__':
@@ -46,7 +51,7 @@ if __name__ == '__main__':
     server in the event no messages have been published from or sent to this 
     client. If the connection request is successful, the callback attached to
     `client.on_connect` will be called."""    
-    client.connect(host="test.mosquitto.org", port=1883, keepalive=60)
+    client.connect(host="test.mosquitto.org")
 
     """In our prior labs, we did not use multiple threads per se. Instead, we
     wrote clients and servers all in separate *processes*. However, every 

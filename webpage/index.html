@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <title>PLANT WATCH</title> 
+</head>
+<body>
+  <header class="title">
+    <h1>PLANT_WATCH 🪴</h1>  
+    <h3>Monitor the light level, temperature, and humidity of your plant from anywhere. 
+        Get automatic email alerts when any value goes too high or low.</h3>
+  </header>
+  <div class="data-card-container">
+
+    <div class="data-card" id="light">
+      <div class="card-title-container">
+        <div class="card-title"><h2>Light</h2></div>
+        <div class="card-title-icon"><i class='bx bx-bulb' ></i></div>
+      </div>
+      <p class="value">673</p>
+      <div class="threshold-box-container">
+        <div class="threshold-box">
+          <p class="threshold-value-label">Low threshold</p>
+          <p class="threshold-value">400 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+        <div class="threshold-box">
+          <p class="threshold-value-label">High Threshold</p>
+          <p class="threshold-value">1000 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+      </div>
+      
+    </div>
+    <div class="data-card" id="temp">
+      <div class="card-title-container">
+        <div class="card-title"><h2>Temperature</h2></div>
+        <div class="card-title-icon"><i class='bx bxs-thermometer' ></i></div>
+      </div>
+      <p class="value">75° F</p>
+      <div class="threshold-box-container">
+        <div class="threshold-box">
+          <p class="threshold-value-label">Low threshold</p>
+          <p class="threshold-value">60 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+        <div class="threshold-box">
+          <p class="threshold-value-label">High Threshold</p>
+          <p class="threshold-value">80 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+      </div>
+    </div>
+    <div class="data-card" id="humidity">
+      <div class="card-title-container">
+        <div class="card-title"><h2>Humidity</h2></div>
+        <div class="card-title-icon"><i class='bx bx-water'></i></div>
+      </div>
+      <p class="value">24.0</p>
+      <div class="threshold-box-container">
+        <div class="threshold-box">
+          <p class="threshold-value-label">Low threshold</p>
+          <p class="threshold-value">20.0 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+        <div class="threshold-box">
+          <p class="threshold-value-label">High Threshold</p>
+          <p class="threshold-value">26.0 <i class='bx bx-edit-alt' ></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="email-notif-section">
+    <div class="card-title-container">
+      <div class="card-title"><h2><i class='bx bx-envelope'></i>  Notifications</h2></div>
+      <div class="card-title-icon"><button class="add-email-address">Add Email Address</button></div>
+    </div>
+    <table class="email-list">
+      <tr>
+        <th>Email Address</th>
+        <th>Type</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>nboxer@usc.edu</td>
+        <td>Light, Temperature, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+      <tr>
+        <td>blackadarj22@icloud.com</td>
+        <td>Light, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+      <tr>
+        <td>blackadarj22@icloud.com</td>
+        <td>Light, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+      <tr>
+        <td>blackadarj22@icloud.com</td>
+        <td>Light, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+      <tr>
+        <td>blackadarj22@icloud.com</td>
+        <td>Light, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+      <tr>
+        <td>blackadarj22@icloud.com</td>
+        <td>Light, Humidity</td>
+        <td><i class='bx bx-trash' ></i></td>
+      </tr>
+
+    </table>
+  </div>
+
+</body>

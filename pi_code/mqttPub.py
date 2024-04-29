@@ -41,7 +41,7 @@ def main():
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
 
-    client.connect(broker, port=1883, keepalive=120)
+    client.connect(broker, port=8081, keepalive=120)
     client.loop_start()
     time.sleep(1)
 
