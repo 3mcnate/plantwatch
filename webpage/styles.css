@@ -29,9 +29,9 @@
 }
 
 body {
-  height: 100vh;
   background: var(--body-color);
   padding: 0px 100px;
+  padding-bottom: 50px;
 }
 
 h1 {
@@ -79,7 +79,7 @@ h2 {
 
 .data-card:hover {
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
-  transform: scale(105%);
+  transform: scale(101%);
   transition: var(--trans-02);
 }
 
@@ -101,11 +101,27 @@ h2 {
 
 .threshold-value {
   font-size: 2em;
-  border-radius: 10px;
+  transition: var(--trans-02);
+}
+
+.threshold-value:hover {
+  color: rgb(169, 169, 169);
+  cursor: pointer;
+  transition: var(--trans-02);
 }
 
 .threshold-value i {
   font-size: 1em;
+}
+
+.threshold-value-container input {
+  width: 105px;
+  font-size: 1.5em;
+  border-radius: 15px;
+  padding: 5px 10px;
+  border: 1px darkgray solid;
+  display: none;
+  line-height:1em;
 }
 
 .card-title-container {
@@ -153,7 +169,7 @@ td {
 
 td i {
   transition: var(--trans-02);
-  color: rgb(167, 9, 9);
+  color: rgb(155, 5, 5);
 }
 
 td i:hover {

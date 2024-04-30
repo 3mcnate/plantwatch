@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 # user credentials
 sender = "plantmonitor741@gmail.com"
 password = 'jwtvwwlsxzgwyhjn'
-receiver = "blackadarj22@icloud.com"
+receiver = "nboxer@usc.edu"
 
 # function takes in data from RPI and makes email
 def constructEmail(data):
