@@ -45,7 +45,43 @@ def get_threshold():
         thresholds = pickle.load(file)
 
     return jsonify(thresholds)
-    
+
+@app.route('/email', methods=['POST'])
+def add_email():
+    email = request.json['email']
+    types = request.json['types']
+
+    with open('data/emails.pickle', 'rb') as file:
+        emails = pickle.load(file)
+
+    emails[email] = types
+
+    with open('data/emails.pickle', 'wb') as file:
+        pickle.dump(emails, file)
+
+@app.route('/email', methods=['DELETE'])
+def remove_email():
+    email = request.json['email']
+
+    with open('data/emails.pickle', 'rb') as file:
+        emails = pickle.load(file)
+
+    del emails[email]
+
+    with open('data/emails.pickle', 'wb') as file:
+        pickle.dump(emails, file)
+
+    return jsonify({'success'})
+
+
+@app.route('/email', methods=['GET'])
+def get_emails():
+
+    with open('data/emails.pickle', 'rb') as file:
+        emails = pickle.load(file)
+
+    return jsonify(emails)
+
 
 if __name__ == '__main__':
     mqttSub.start()
