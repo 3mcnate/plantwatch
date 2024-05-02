@@ -1,5 +1,4 @@
 # file used to send email given information from pi
-
 import smtplib
 from email.mime.text import MIMEText
 import pickle
@@ -13,10 +12,10 @@ receiver = "nboxer@usc.edu"
 def constructEmail(data):
     subject = "ALERT: Your plants need your help!"
 
-    temp = str(data[0])
-    humi = str(data[1])
+    temp = str(data[1])
+    humi = str(data[2])
     # convert light level to something better understandable
-    light = data[2]
+    light = data[0]
     if light < 200:
         lightLevel = "DARK"
     elif light > 600:
@@ -32,15 +31,38 @@ def constructEmail(data):
     """
     return subject, body
 
-def sendEmail(data, receiver='blackadarj22@icloud.com', sender='plantmonitor741@gmail.com', password='jwtvwwlsxzgwyhjn'):
+def sendEmail(data, alerts):
+
+    sender='plantmonitor741@gmail.com'
+    password='jwtvwwlsxzgwyhjn'
+
     # call function to assemble email
     subject, body = constructEmail(data)
 
-    message = MIMEText(body)
-    message['Subject'] = subject
-    message['To'] = receiver
-    message['From'] = sender
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-       smtp_server.login(sender, password)
-       smtp_server.sendmail(sender, receiver, message.as_string())
-    print("Message sent!")
+    with open('data/emails.pickle', 'rb') as file:
+        emails = pickle.load(file)
+    
+    addresses = list(emails.keys())
+    for address in addresses:
+
+        requested_alerts = emails[address]
+        print(f"{address} has requested triggered alerts: {requested_alerts}")
+
+        send = False
+        for i in alerts:
+            if i in requested_alerts:
+
+                print(f"{address}: sent {i} alert")
+
+                # send email
+                send = True
+        
+        if send:
+            message = MIMEText(body)
+            message['Subject'] = subject
+            message['To'] = address
+            message['From'] = sender
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+                smtp_server.login(sender, password)
+                smtp_server.sendmail(sender, address, message.as_string())
+                print("Message sent!")

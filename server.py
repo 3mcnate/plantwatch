@@ -35,7 +35,7 @@ def update_threshold():
     with open('data/thresholds.pickle', 'wb') as file:
         pickle.dump(thresholds, file)
 
-    res = jsonify("{}") # type: ignore    
+    res = make_response("success") 
     res.status_code = 200
     return res
 

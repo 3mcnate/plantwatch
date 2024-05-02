@@ -3,6 +3,7 @@
 import paho.mqtt.client as paho
 import time
 import socket
+import pickle
 from emailSender import sendEmail
 
 # functions for client object
@@ -20,7 +21,7 @@ def on_connect(client, userdata, flags, rc, options):
     client.subscribe("monitor/sensor")
 
 
-def on_disconnect(client, userdata, flags, rc=0):
+def on_disconnect(client, userdata, flags, rc):
     print("Disconnected, rc:", rc)
 
 
@@ -30,6 +31,7 @@ def on_message(client, userdata, message):
     # decode message
     topic = message.topic
     msg = str(message.payload.decode("utf-8"))
+    print("NEW SENSOR READING: " + msg)
     msg = msg.strip().split(' ')
     
     # conver back to int values
@@ -42,17 +44,37 @@ def on_message(client, userdata, message):
         datafile.write(str(message.payload.decode("utf-8")))
     
     # email if an alert is needed
-    # if checkData(msg):
-    #     sendEmail(msg)
+    alerts = checkData(msg[0], msg[2], msg[1])
+    if len(alerts) != 0:
+        sendEmail(msg, alerts)
 
 
 # # function to check if data outside desired range
-def checkData(msg, highTemp=50):
-    temp = msg[0]
-    if temp > highTemp:
-        return True
-    else: return False
+def checkData(light, temp, humid):
 
+    with open('data/thresholds.pickle', 'rb') as file:
+        thresholds = pickle.load(file)
+
+    light_low = float(thresholds['light-low'])
+    light_high = float(thresholds['light-high'])
+    temp_low = float(thresholds['temp-low'])
+    temp_high = float(thresholds['temp-high'])
+    humid_low = float(thresholds['humid-low'])
+    humid_high = float(thresholds['humid-high'])
+
+    alerts = []
+
+    if light < light_low or light > light_high:
+        alerts.append('l')
+        print('LIGHT out of range!')
+    if temp < temp_low or temp > temp_high:
+        alerts.append('t')
+        print('TEMP out of range!')
+    if humid < humid_low or humid > humid_high:
+        alerts.append('h')
+        print('HUMID out of range!')
+
+    return alerts
 
 def start():
     # set broker
