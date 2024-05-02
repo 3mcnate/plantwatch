@@ -2,6 +2,7 @@
 
 import smtplib
 from email.mime.text import MIMEText
+import pickle
 
 # user credentials
 sender = "plantmonitor741@gmail.com"

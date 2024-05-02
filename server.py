@@ -59,6 +59,10 @@ def add_email():
     with open('data/emails.pickle', 'wb') as file:
         pickle.dump(emails, file)
 
+    response = make_response("success")
+    response.status_code = 200
+    return response
+
 @app.route('/email', methods=['DELETE'])
 def remove_email():
     email = request.json['email']
@@ -71,7 +75,9 @@ def remove_email():
     with open('data/emails.pickle', 'wb') as file:
         pickle.dump(emails, file)
 
-    return jsonify({'success'})
+    response = make_response("success")
+    response.status_code = 200
+    return response
 
 
 @app.route('/email', methods=['GET'])

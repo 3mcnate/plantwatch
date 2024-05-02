@@ -114,12 +114,15 @@ h2 {
   font-size: 1em;
 }
 
-.threshold-value-container input {
-  width: 105px;
-  font-size: 1.5em;
+input {
   border-radius: 15px;
   padding: 5px 10px;
   border: 1px darkgray solid;
+}
+
+.threshold-value-container input {
+  width: 105px;
+  font-size: 1.5em;
   display: none;
   line-height:1em;
 }
@@ -185,3 +188,68 @@ td i:hover {
   font-size: 1.5em;
   padding: 10px;
 }
+
+.overlay {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(81, 81, 81, 0.447);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.popup {
+  background-color: var(--body-color);
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  width: 400px;
+}
+
+li {
+  margin-bottom: 20px;
+  font-size: 1.3em;
+}
+
+ul {
+  padding: 20px;
+  list-style-type: none;
+}
+
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  
+}
+
+form {
+  padding: 10px;
+}
+
+.popup h2 {
+  margin-bottom: 20px;
+}
+
+label p {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+#email-input {
+  width: 70%;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-button {
+  font-size: medium;
+}
+

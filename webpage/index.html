@@ -16,6 +16,36 @@
     <h3>Monitor the light level, temperature, and humidity of your plant from anywhere.
       Get automatic email alerts when any value goes too high or low.</h3>
   </header>
+  <div class="overlay">
+    <div class="popup">
+      <h2>Add Email Address</h2>
+      <form id="add-email-form">
+        <label for="email-input">
+          <p>Email</p>
+          <input type="email" id="email-input" placeholder="Enter your email...">
+        </label>
+        <ul>
+          <li>
+            <input type="checkbox" id="light-alert-checkbox"> Light
+          </li>
+          <li>
+            <input type="checkbox" id="temp-alert-checkbox"> Temperature
+          </li>
+          <li>
+            <input type="checkbox" id="humid-alert-checkbox"> Humidity
+          </li>
+        </ul>
+      </form>
+      <div class="button-container">
+        <button class="popup-button" id="confirm-add-email">
+          Add Alert
+        </button>
+        <button class="popup-button" id="close-email-popup-button">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="data-card-container">
 
     <div class="data-card">
